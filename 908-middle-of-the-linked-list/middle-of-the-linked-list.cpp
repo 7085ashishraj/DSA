@@ -10,23 +10,13 @@
  */
 class Solution {
 public:
-    int findLength(ListNode* head){
-        int count = 0;
-        ListNode* temp = head;
-        while(temp != nullptr){
-            count++;
-            temp = temp->next;
-        }
-        return count;
-    }
     ListNode* middleNode(ListNode* head) {
-        int length = findLength(head);
-        int middle = length/2;
-
-        ListNode* temp = head;
-        for(int i=0;i<middle;i++){
-            temp = temp->next;    
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast != nullptr && fast ->next!= nullptr){
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        return temp;
+        return slow;
     }
 };
