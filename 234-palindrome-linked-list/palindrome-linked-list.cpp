@@ -25,22 +25,17 @@ public:
         return prev;
     }
     bool isPalindrome(ListNode* head) {
-        //creating FARZI node
-        ListNode* c = new ListNode(100);
-        ListNode* tempC = c;
-        ListNode* temp = head;
-        while(temp != NULL){
-            ListNode* node = new ListNode(temp->val);
-            tempC->next = node;
-            temp = temp->next;
-            tempC = tempC->next;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        //finding left- middle
+        while(fast->next != NULL && fast->next->next != NULL){
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        c = c->next;
-        c = reverseList(c);
-
+        ListNode* newHead = reverseList(slow->next);
         ListNode* a = head;
-        ListNode* b = c;
-        while(a){
+        ListNode* b = newHead;
+        while(b){
             if(a->val != b->val) return false;
             a = a->next;
             b = b->next;
