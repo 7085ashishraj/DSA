@@ -12,16 +12,24 @@ class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
         //using three pointers
-        ListNode* prev = nullptr;
-        ListNode* curr = head;
-        ListNode* Next = head;
+        // ListNode* prev = nullptr;
+        // ListNode* curr = head;
+        // ListNode* Next = head;
 
-        while(curr != nullptr){
-            Next = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = Next; 
-        }
-        return prev;
+        // while(curr != nullptr){
+        //     Next = curr->next;
+        //     curr->next = prev;
+        //     prev = curr;
+        //     curr = Next; 
+        // }
+        // return prev;
+        
+        //Recursive way
+        if(head == nullptr || head->next == nullptr) return head;
+        ListNode* newHead = reverseList(head->next);
+        head->next->next = head;
+        head->next = nullptr;
+        return newHead;
+
     }
 };
