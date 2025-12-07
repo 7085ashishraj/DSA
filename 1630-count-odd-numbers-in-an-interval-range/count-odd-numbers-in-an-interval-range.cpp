@@ -1,11 +1,14 @@
 class Solution {
 public:
     int countOdds(int low, int high) {
-        //vector<int> ans;
-        int cnt = 0;
-        for(int i=low; i<=high; i++){
-            if(i%2 != 0) cnt++;
-        }
-        return cnt;
+        int odd_no_UptoHigh = (high + 1)/2; //will calculate the odd number upto high
+
+        //calculating odd upto low-1
+
+        int odd_no_Uptolow = low / 2;
+
+        return (odd_no_UptoHigh - odd_no_Uptolow);
+
+
     }
 };
