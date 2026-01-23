@@ -1,32 +1,42 @@
 class Solution {
 public:
     int bestClosingTime(string customers) {
-        int n = customers.size();
-        int totalCustomers = 0;
-        for(char c : customers){
-            if(c == 'Y'){
-                totalCustomers++;
-            }
+        //penalty if we close the shop at 'i'th hour = (no. of 'Y' >=i) + (no.of 'N' before 'i'th hour) 
+    int n = customers.length();
+    //N ka prefix sum
+    vector<int> preNo(n+1);
+    preNo[0] = 0;
+    for(int i=0;i<n;i++){
+        int Ncnt = 0;
+        if(customers[i] == 'N'){
+            Ncnt++;
         }
-
-        int mini_penalty = 1e9;
-        int prefix = 0;
-        int time = n;
-
-        for(int i=0;i<=n;i++){
-            int remCustomers = totalCustomers - prefix; //shop closed here
-            int penalty = i - prefix;
-            penalty += remCustomers;
-
-            if(mini_penalty > penalty){
-                mini_penalty = penalty;
-                time = i;
-            }
-
-            if(i != n && customers[i] == 'Y'){
-                prefix++;
-            }
+        preNo[i+1] = preNo[i] + Ncnt;
+    }
+    //Y ka suffix sum
+    vector<int> sufSum(n+1);
+    sufSum[n] = 0;
+    for(int i=n-1;i>=0;i--){
+        int Ycnt = 0;
+        if(customers[i] == 'Y'){
+            Ycnt++;
         }
-        return time;
+        sufSum[i] = sufSum[i+1] + Ycnt;
+    }
+
+    int minPen = n;
+    for(int i=0;i<=n;i++){
+        preNo[i] += sufSum[i];
+        int pen = preNo[i];
+        minPen = min(minPen,pen);
+    }
+
+    for(int i=0;i<=n;i++){
+        int pen = preNo[i];
+        if(pen == minPen) return i;
+    }
+
+    return n;
+        
     }
 };
