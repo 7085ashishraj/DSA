@@ -8,7 +8,7 @@ public:
         }
         for(char ch : t){
            mp[ch]--;
-           if(mp[ch]<0) return ch;
+           if(mp[ch]<0) return ch; //if char freq becomes negative, just return that char
         }
         return ' ';
     }
