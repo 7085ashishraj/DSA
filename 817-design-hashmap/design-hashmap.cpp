@@ -4,7 +4,9 @@ class MyHashMap {
     int MaxSize = 1e6 + 1;
 public:
     MyHashMap() {
-        ans.resize(MaxSize, -1);
+        for(int i=0;i<MaxSize;i++){
+            ans.push_back(-1);
+        }
     }
     
     void put(int key, int value) {
