@@ -9,16 +9,7 @@ public:
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 //k %= n;
-                if(i%2==0){ 
-                    if (mat[i][j] != mat[i][(j+k)%n]){
-                        return false;
-                    }  
-                }     
-                else{
-                    if(mat[i][j] != mat[i][(j-k+n)%n]){
-                    return false;
-                    }
-                }
+                if((mat[i][(j+k)%n]) != mat[i][j]) return false;
             }
         }
         return true;
