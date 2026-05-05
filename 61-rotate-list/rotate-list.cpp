@@ -13,28 +13,29 @@ public:
     ListNode* rotateRight(ListNode* head, int k) {
         ListNode* temp = head;
         ListNode* tail = nullptr;
-        if(head==nullptr || head->next == nullptr) return head;
-        int n = 0; //finding length of LinkedList
+        //if empty list or single node occurs
+        if(head == nullptr || head->next == nullptr) return head;
+        //count nodes
+        int n = 0;
         while(temp != nullptr){
-            if(temp->next==nullptr) tail = temp;
+            if(temp->next == nullptr) tail = temp;
             temp = temp->next;
             n++;
-            
         }
-        //just to avoid large rotation if k is having large value
-        k = k%n;
-        if(k==0) return head; // no rotation required
 
-        //place temp at (n-k)th position
+        k%=n; //just to avoid large rotation
+        if(k==0) return head;
+
         temp = head;
+        //place temp at (n-k) position
         for(int i=1;i<n-k;i++){
             temp = temp->next;
         }
 
-        tail->next = head;
+        tail->next = head; //making it circular
         head = temp->next;
         temp->next = nullptr;
-        return head;
 
+        return head;   
     }
 };
