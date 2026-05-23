@@ -4,13 +4,15 @@ public:
         int n = nums.size();
         int cnt = 0;
 
-        for(int i=0;i<n-1;i++){
-            if(nums[i]>nums[i+1]) cnt++;
+        for(int i=1;i<n;i++){
+            if(nums[i-1]>nums[i]){
+                cnt++;
+            }
+            if(cnt > 1) return false;
         }
+        
+        if(nums[0] < nums[n-1] && cnt == 1) return false;
 
-        if(nums[n-1]>nums[0]) cnt++;
-
-        if(cnt>1) return false;
         return true;
     }
 };
