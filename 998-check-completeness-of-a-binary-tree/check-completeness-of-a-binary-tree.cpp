@@ -11,26 +11,27 @@
  */
 class Solution {
 public:
+    //total no. of nodes
+    int countNodes(TreeNode* root){
+        if(root == NULL) return 0;
+        int l = countNodes(root->left);
+        int r = countNodes(root->right);
+        return l+r+1;
+    }
+
+    bool isComplete(int i, TreeNode* root, int totalNodes){
+        //base case
+        if(root == NULL) return true;
+        if(i >= totalNodes) return false;
+        bool l = isComplete(2*i+1, root->left, totalNodes);
+        bool r = isComplete(2*i+2, root->right, totalNodes);
+
+        return l && r;
+    }
+    
     bool isCompleteTree(TreeNode* root) {
-        //using BFS
-        queue<TreeNode* > q;
-        q.push(root);
-        bool seen = false;
-        while(!q.empty()){
-            TreeNode* node = q.front();
-            q.pop();
+        int totalNodes = countNodes(root);
+        return isComplete(0, root, totalNodes);
 
-            if(node == NULL){
-                seen = true;
-            }else{
-                if(seen == true){
-                    return false;
-                }
-
-                q.push(node->left);
-                q.push(node->right);
-            }   
-        }
-        return true;
     }
 };
