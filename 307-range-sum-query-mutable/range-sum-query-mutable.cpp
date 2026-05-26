@@ -46,7 +46,7 @@ public:
     NumArray(vector<int>& nums) {
         n = nums.size();
         segmentTree.resize(4*n);
-        if(n>0) builtTree(0, 0, n-1, nums);
+         builtTree(0, 0, n-1, nums);
     }
     
     void update(int index, int val) {
