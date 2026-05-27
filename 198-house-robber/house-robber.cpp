@@ -1,19 +1,19 @@
 class Solution {
 public:
-    int robbed(int i, vector<int> &nums, vector<int> &dp){
-        if(i < 0) return 0;
-        if(dp[i] != -1) return dp[i];
-        int rob = nums[i] + robbed(i-2, nums,dp);
-        int notrob = robbed(i-1, nums, dp);
-
-        return dp[i] = max(rob, notrob);
-    }
     int rob(vector<int>& nums) {
+        //tabulation
         int n = nums.size();
-        //memoization
-        //dp[i] -> max amount robbed till i-th house
+        if(n==1) return nums[0];
         vector<int> dp(n, -1);
-        
-        return robbed(nums.size()-1, nums,dp);
+        dp[0] = nums[0];
+        dp[1] = max(nums[0], nums[1]);
+
+        for(int i=2;i<n;i++){
+            int rob = nums[i] + dp[i-2];
+            int notRob = dp[i-1];
+
+            dp[i] = max(rob, notRob);
+        }
+        return dp[n-1];
     }
 };
