@@ -11,6 +11,7 @@ public:
     int rob(vector<int>& nums) {
         int n = nums.size();
         //memoization
+        //dp[i] -> max amount robbed till i-th house
         vector<int> dp(n, -1);
         
         return robbed(nums.size()-1, nums,dp);
