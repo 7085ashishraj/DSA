@@ -1,23 +1,26 @@
 class Solution {
 public:
-
-    int LCS(int i, int j, string &s1, string &s2, vector<vector<int>> &dp){
-        //base case
-        if(i<0 || j<0) return 0;
-
-        if(dp[i][j] != -1) return dp[i][j];
-        if(s1[i] == s2[j]){
-            return dp[i][j] = 1 + LCS(i-1, j-1, s1, s2,dp);
-        }else{
-            int l = LCS(i-1, j, s1, s2,dp);
-            int r = LCS(i, j-1, s1, s2,dp);
-
-            return dp[i][j] = max(l,r);
-        }
-    }
-
     int longestCommonSubsequence(string text1, string text2) {
-        vector<vector<int>> dp(text1.length(), vector<int>(text2.length(),-1));
-        return LCS(text1.length()-1, text2.length()-1, text1, text2,dp);
+        int m = text1.length();
+        int n = text2.length();
+        //tabulation
+        //dp[i][j] -> Length of LCS between s1 of length i and s2 of length j
+        //make a habit of LCS type by taking on the basis of length in tabulation
+        vector<vector<int>> dp(m+1, vector<int>(n+1,0));
+
+        for(int i=1;i<=m; i++){
+            for(int j=1;j<=n; j++){
+                 if (text1[i - 1] == text2[j - 1]) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                }
+
+                // Not match
+                else {
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+
+        return dp[m][n];
     }
 };
