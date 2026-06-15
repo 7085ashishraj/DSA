@@ -10,28 +10,27 @@
  */
 class Solution {
 public:
-    int findLength(ListNode* head){
-        int count = 0;
+    int cntNode(ListNode* head){
+        int n = 0;
         ListNode* temp = head;
-        while(temp != nullptr){
-            count++;
+        while(temp){
+            n++;
             temp = temp->next;
         }
-        return count;
+        return n;
     }
-
     ListNode* deleteMiddle(ListNode* head) {
         if(head == nullptr || head->next == nullptr){
             return nullptr;
         }
-        int length = findLength(head);
+        int length = cntNode(head);
         int middle = length / 2;
         ListNode* temp = head;
         for(int i=0;i<middle-1;i++){
             temp = temp->next;
-            
         }
         temp->next = temp->next->next;
         return head;
+        
     }
 };
