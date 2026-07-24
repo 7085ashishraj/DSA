@@ -1,23 +1,27 @@
 class Solution {
 public:
-    void dfs(vector<vector<int>>& image, int i, int j, int orig_color, int modi_color){
-        //base case
-        if(i<0 || j<0 || i>=image.size() || j>=image[0].size() || image[i][j]!= orig_color){
-            return;
-        }
-        //work
-        image[i][j] = modi_color;
-        //recursive call
+    void dfs(int row, int col, vector<vector<int>>&ans,vector<vector<int>>& image, int newColor, int initColor ){
+        int n = image.size();
+        int m = image[0].size();
+        ans[row][col] = newColor;
+        //recursive traversal in all 4 directions
+        int delRow[] = {-1, 0, 1, 0};
+        int delCol[] = {0,1, 0, -1};
+        for(int i=0;i<4;i++){
+            int nrow = row + delRow[i];
+            int ncol = col + delCol[i];
 
-        dfs(image, i-1,j,orig_color, modi_color);//top
-        dfs(image, i,j+1,orig_color, modi_color);//bottom
-        dfs(image, i+1,j,orig_color, modi_color);//left
-        dfs(image, i,j-1,orig_color, modi_color);//right
+            //checking for valid rows and cols
+            if(nrow >=0 && nrow <n && ncol >= 0 && ncol <m
+            && image[nrow][ncol] == initColor && ans[nrow][ncol] != newColor){
+                dfs(nrow, ncol, ans, image, newColor, initColor);
+            }
+        }
     }
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
-        int orig_color = image[sr][sc];
-        if(orig_color != color)
-            dfs(image, sr, sc, orig_color, color);
-        return image;
+        int initColor = image[sr][sc];
+        vector<vector<int>> ans = image;
+        dfs(sr,sc, ans,image,color, initColor);  
+        return ans; 
     }
 };
