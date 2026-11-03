@@ -1,33 +1,32 @@
 class Solution {
 public:
     int minOperations(vector<vector<int>>& grid, int x) {
-        int n = grid.size();
-        int m = grid[0].size();
-
-        vector<int>nums;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                nums.push_back(grid[i][j]);
+        int m = grid.size();
+        int n = grid[0].size();
+        //transform it into 1-D
+        vector<int> res;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                res.push_back(grid[i][j]);
             }
         }
-        int r = nums[0]%x;
-        for(int i=1;i<nums.size();i++){
-            if(r != nums[i] % x){
-                return -1;
-            }
-        }
-        sort(begin(nums), end(nums));
-        int mid = nums[nums.size()/2];
 
-        int ans = 0;
+        //check remainder of other ele with first if not equal then not possible to make it uni-value
 
-        for(auto &num: nums){
-            ans += abs(num - mid)/x;
+        int r = res[0]%x;
+        for(int i=0;i<res.size();i++){
+            if(r!=res[i]%x) return -1;
         }
 
-        return ans;
+        sort(res.begin(), res.end());
 
+        int mid = res[res.size()/2];
 
+        int opnCnt = 0;
+        for(int i=0;i<res.size();i++){
+            opnCnt += abs(res[i] - mid)/x;
+        }
+        return opnCnt;
 
     }
 };
