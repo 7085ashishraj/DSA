@@ -1,9 +1,7 @@
 class Solution {
 public:
     typedef long long ll;
-
     vector<ll> slidingWindowMedian(vector<int> &nums, int x) {
-
         vector<ll> medians;
 
         multiset<int> left, right; //why -> coz we can easily handle duplicate ele as well  why not heap --->we need to delete ele as well when we slide window size so, in heap deletion---a bit muskill
